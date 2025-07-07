@@ -1,7 +1,7 @@
 # Dockerfile : shop3프로젝트 폴더에 생성
 # 도커 이미지 생성을 위한 파일
 # 1단계 : 빌드 환경 (Gradle 사용)
-FROM openjdk:17-jdk-slim as builder
+FROM openjdk:17-jdk-slim AS builder
 # 작업 폴더의 경로 app로 설정
 WORKDIR /app
 # 현재  shop3 전체를 app로 복사
