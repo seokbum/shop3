@@ -10,7 +10,7 @@ COPY . .
 RUN chmod +x ./gradlew
 # gradlew : 빌드 수행 기능. 빌드 수행
 # clean package : 새로이 jar 파일 생성
-RUN ./gradlew build -x test
+RUN ./gradlew build -x test --stacktrace
 
 # 2단계 : 실제 런타임 환경
 FROM openjdk:17-jdk-slim
