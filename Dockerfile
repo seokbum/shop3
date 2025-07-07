@@ -17,7 +17,7 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 # shop3-0.0.1-SNAPSHOT.jar : 빌드로 생성된 jar 파일
 # app.jar 빌드된 파일의 이름 설정
-COPY --from=builder /app/build/libs/shop3-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=builder /app/build/libs/*.jar app.jar
 #포트 번호 정의 .application.properties에 정의된 포토와 동일해야함
 EXPOSE 8080
 # java -jar app.jar 명령문으로 컨테이너가 실행

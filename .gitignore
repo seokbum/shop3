@@ -1,16 +1,46 @@
-# Compiled class file
+# ===============================================
+# IDE 및 시스템 파일 (IntelliJ, Eclipse, VSCode 등)
+# ===============================================
+.idea/
+.project
+.classpath
+.settings/
+*.iml
+.vscode/
+
+# macOS/Windows 시스템 파일
+.DS_Store
+Thumbs.db
+
+
+# ===============================================
+# Gradle 관련 파일
+# ===============================================
+# Gradle 캐시 및 히스토리
+.gradle
+# Gradle 빌드 결과물 폴더
+build/
+
+
+# ===============================================
+# 빌드 결과물 및 로그
+# ===============================================
+# 컴파일된 클래스 파일
 *.class
 
-# Log file
+# 로그 파일
 *.log
 
-# BlueJ files
+# BlueJ 파일
 *.ctxt
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
-# Package Files #
+# VM 크래시 로그
+hs_err_pid*
+replay_pid*
+
 *.jar
 *.war
 *.nar
@@ -19,6 +49,4 @@
 *.tar.gz
 *.rar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-replay_pid*
+!gradle/wrapper/gradle-wrapper.jar
