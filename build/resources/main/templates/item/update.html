@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+<head>
+	<meta charset="UTF-8"/>
+	<title th:text="${title} ?: '사용자 수정'">사용자 수정</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<th:block layout:fragment="css_js_head">
+		<style>
+			.form-container {
+				max-width: 600px;
+				margin: 20px auto;
+				padding: 30px;
+				background-color: rgba(255, 255, 255, 0.9);
+				border-radius: 10px;
+				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+				backdrop-filter: blur(5px);
+			}
+			.form-control {
+				border-radius: 0.5rem;
+			}
+			.btn {
+				border-radius: 0.5rem;
+			}
+			.error-message {
+				color: red;
+				font-size: 0.9em;
+				margin-top: 5px;
+				display: block; /* 오류 메시지가 새로운 줄에 표시되도록 */
+			}
+			.error-global {
+				color: red;
+				font-weight: bold;
+				margin-bottom: 15px;
+				text-align: center;
+			}
+			table {
+				width: 100%;
+				margin-top: 20px;
+			}
+			table td {
+				padding: 10px 0;
+			}
+			table td:first-child {
+				width: 120px; /* 라벨 컬럼 너비 조정 */
+				font-weight: bold;
+				vertical-align: top; /* 라벨이 상단에 정렬되도록 */
+				padding-top: 15px; /* 라벨과 입력 필드 정렬 */
+			}
+		</style>
+	</th:block>
+</head>
+<body>
+
+<div layout:fragment="content">
+	<div class="form-container">
+		<h2 class="text-center mb-4">사용자 수정</h2>
+
+		<!-- FIX: th:object="${userDto}"를 th:object="${user}"로 변경 -->
+		<form th:object="${user}" th:action="@{/user/update}" method="post">
+			<!-- 글로벌 에러 출력 -->
+			<th:block th:if="${#fields.hasGlobalErrors()}">
+				<div th:each="error : ${#fields.globalErrors()}" class="error">
+					<span th:text="${error}"></span>
+				</div>
+			</th:block>
+
+			<table class="table table-borderless">
+				<tr>
+					<td>아이디</td>
+					<td>
+						<input type="text" th:field="*{userid}" id="userid" class="form-control" readonly/>
+						<span th:if="${#fields.hasErrors('userid')}" th:errors="*{userid}" class="error-message"></span>
+					</td>
+				</tr>
+				<tr>
+					<td>이름</td>
+					<td>
+						<input type="text" th:field="*{username}" class="form-control" />
+						<span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error-message"></span>
+					</td>
+				</tr>
+				<tr>
+					<td>전화번호</td>
+					<td>
+						<input type="text" th:field="*{phoneno}" class="form-control" />
+					</td>
+				</tr>
+				<tr>
+					<td>우편번호</td>
+					<td>
+						<input type="text" th:field="*{postcode}" class="form-control" />
+					</td>
+				</tr>
+				<tr>
+					<td>주소</td>
+					<td>
+						<input type="text" th:field="*{address}" class="form-control" />
+					</td>
+				</tr>
+				<tr>
+					<td>이메일</td>
+					<td>
+						<input type="text" th:field="*{email}" class="form-control" />
+						<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-message"></span>
+					</td>
+				</tr>
+				<tr>
+					<td>생년월일</td>
+					<td>
+						<input type="text" th:field="*{birthday}" class="form-control" placeholder="YYYY-MM-DD" />
+						<span th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}" class="error-message"></span>
+					</td>
+				</tr>
+				<!-- 현재 비밀번호 확인 필드 추가 -->
+				<tr>
+					<td>현재 비밀번호 확인</td>
+					<td>
+						<!-- name="currentPassword"로 컨트롤러에서 직접 받습니다. -->
+						<input type="password" name="currentPassword" class="form-control" required />
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" class="text-center pt-4">
+						<input type="submit" value="수정완료" class="btn btn-primary me-2"/>
+						<input type="reset" value="초기화" class="btn btn-secondary me-2"/>
+						<input type="button" value="돌아가기" onclick="backToMyPage()" class="btn btn-info text-white"/>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</div>
+
+<th:block layout:fragment="css_js_body">
+	<script th:inline="javascript">
+		function backToMyPage() {
+			const userId = /*[[${user.userid}]]*/ 'defaultUser';
+			if (userId) {
+				location.href = /*[[@{/user/mypage(userid=${user.userid})}]]*/ '/user/mypage';
+			} else {
+				location.href = /*[[@{/user/login}]]*/ '/user/login';
+			}
+		}
+	</script>
+</th:block>
+
+</body>
+</html>
