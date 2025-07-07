@@ -1,10 +1,11 @@
 # 1단계 : 빌드 환경 (Gradle 사용)
 FROM openjdk:17-jdk-slim AS builder
+# 작업 폴더의 경로 app로 설정
 WORKDIR /app
 
-# Gradle Wrapper 관련 파일 복사 (캐싱 효율을 위해 먼저)
+# gradlew 실행 스크립트와 Gradle 설정 파일/디렉토리를 복사 (캐싱 효율을 위해 먼저)
 COPY gradlew .
-COPY .gradle .gradle/
+COPY gradle gradle/          
 COPY settings.gradle .
 COPY build.gradle .
 
@@ -24,6 +25,7 @@ RUN ./gradlew bootJar -x test --stacktrace
 
 # 2단계 : 실제 런타임 환경
 FROM openjdk:17-jdk-slim
+# 작업 폴더의 경로 app로 설정
 WORKDIR /app
 # shop3-0.0.1-SNAPSHOT.jar : 빌드로 생성된 jar 파일
 # app.jar 빌드된 파일의 이름 설정
