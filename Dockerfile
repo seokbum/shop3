@@ -7,7 +7,7 @@ WORKDIR /app
 # 현재  shop3 전체를 app로 복사
 COPY . .
 # 리눅스 명령어  gradlew 파일에 실행 권한 부여
-RUN chmod +x ./gradlew
+RUN chmod +x .gradlew
 # gradlew : 빌드 수행 기능. 빌드 수행
 # clean package : 새로이 jar 파일 생성
 RUN ./gradlew build -x test --stacktrace
