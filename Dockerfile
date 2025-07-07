@@ -5,7 +5,7 @@ WORKDIR /app
 
 # gradlew 실행 스크립트와 Gradle 설정 파일/디렉토리를 복사 (캐싱 효율을 위해 먼저)
 COPY gradlew .
-COPY gradle gradle/          
+COPY gradle gradle/
 COPY settings.gradle .
 COPY build.gradle .
 
